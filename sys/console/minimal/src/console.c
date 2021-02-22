@@ -165,7 +165,7 @@ console_write(const char *str, int cnt)
 
     /* If the byte string is non nlip and we are silencing non nlip bytes,
      * do not let it go out on the console
-     */ 
+     */
     if (!g_is_output_nlip && g_console_silence_non_nlip) {
         goto done;
     }
@@ -313,7 +313,9 @@ console_handle_char(uint8_t byte)
 
             input = NULL;
             ev = NULL;
+#if MYNEWT_VAL(CONSOLE_ECHO_REENABLE_AFTER_NLIP)
             console_echo(1);
+#endif
             return 0;
         /* Ignore characters if there's no more buffer space */
         } else if (byte == CONSOLE_NLIP_PKT_START2) {

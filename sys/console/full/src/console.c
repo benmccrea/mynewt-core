@@ -981,7 +981,9 @@ handle_nlip(uint8_t byte)
         insert_char(&input->line[cur], byte);
         if (byte == '\n') {
             input->line[cur] = '\0';
+#if MYNEWT_VAL(CONSOLE_ECHO_REENABLE_AFTER_NLIP)
             console_echo(1);
+#endif
             nlip_state = 0;
 
             console_handle_line();
